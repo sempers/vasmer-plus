@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/lib/jquery.min.js"></script>
+    <script src="/js/lib/bootstrap.min.js"></script>
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/services.js"></script>
+    <script src="/js/controllers.js"></script>
+    <title>TEMPLATE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+</head>
+<body>
+<div class="container" ng-controller="AppCtrl">
+    <div class="page-header">
+        <h2>Этимологический словарь Фасмера</h2>
+    </div>
+    <form class="form-search">
+        <input id="word-query" type="text" class="input-large" ng-model="wordQuery" ng-value="{{wordQuery}}"
+               placeholder="Введите слово для поиска"/>
+        <button class="btn btn-small" ng-click="doSearch()">Найти</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/lib/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/services.js"></script>
+    <script src="/js/controllers.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
+    <title>Vasmer loader</title>
+</head>
+<body>
+<div class="container" ng-controller="LoaderCtrl">
+    <div class="page-header">
+        <h2>Этимологический словарь Фасмера. Загрузка записей.</h2>
+    </div>
+    Текущее количество записей в БД: <strong>{{recCount}}</strong><br/>
+    Последняя загруженная запись: <em>{{lastRecord}}</em>
+</div>
+</body>
+</html>

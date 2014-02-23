@@ -1,7 +1,6 @@
 var http = require('http');
 var express = require('express');
 var dblite = require('dblite');
-var async = require('async');
 var search = require('./search');
 
 

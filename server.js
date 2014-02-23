@@ -9,12 +9,12 @@ app.engine('html', require('ejs').renderFile);
 app.use(express.methodOverride());
 app.set('port', process.env.PORT || 3000);
 
-var dbCrashed = true;
+var dbCrashed = false;
 var db;
 
 try {
-    var dblite = require('dblite');
-    db = dblite("vasmer.sqlite");
+    var sqlite3 = require("sqlite3");
+    db = new sqlite3.Database("vasmer.sqlite");
 }
 catch (e)
 {

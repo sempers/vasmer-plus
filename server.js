@@ -1,6 +1,5 @@
 var http = require('http');
 var express = require('express');
-var dblite = require('dblite');
 var search = require('./search');
 
 var app = express();
@@ -11,9 +10,12 @@ app.use(express.methodOverride());
 app.set('port', process.env.PORT || 3000);
 
 var dbCrashed = false;
+var db;
+
 
 try {
-	var db = dblite("vasmer.sqlite");
+    var dblite = require('dblite');
+    db = dblite("vasmer.sqlite");
 }
 catch (e)
 {

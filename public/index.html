@@ -1,34 +1,41 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
-    <script src="socket.io/socket.io.js"></script>
     <script src="js/lib/jquery.min.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
     <script src="js/lib/angular.min.js"></script>
     <script src="js/lib/angular-route.min.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/controllers.js"></script>
-    <title>TEMPLATE</title>
+    <title>Этимологический словарь Фасмера</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
     <base href="/" />
 </head>
 <body>
 <div class="container" ng-controller="AppCtrl">
     <div class="page-header">
-        <h2>Этимологический словарь Фасмера</h2>
+        <h1>Этимологический словарь Фасмера</h1>
     </div>
     <form class="form-search">
         <input id="word-query" type="text" class="input-large" ng-model="wordQuery" ng-value="{{wordQuery}}"
-               placeholder="Введите слово для поиска"/>
+               placeholder="Введите слово для поиска" style="width: 350px"/>
         <button class="btn btn-small" ng-click="doSearch()">Найти</button>
-
     </form>
-    <br/>
-    <br/>
-    <p>Results: {{results | json}}</p>
+    <div class="words" ng-show="words" class="words-div">
+        <div>
+            <span class="found-label">Найдено: {{words.length}}</span>
+        </div>
+        <ul  class="unstyled">
+            <li ng-repeat="word in words | orderBy:'word'" class="word-item">
+                <p><h3>{{word.word}}</h3></p>
+                <p ng-show="word.general"><strong></strong><span ng-bind-html-unsafe="word.general"></span></p>
+                <p ng-show="word.origin"><span class="origin">Происхождение: </span><span ng-bind-html-unsafe="word.origin"></span></p>
+                <p ng-show="word.trubachev"><span class="trubachev">Комментарий Трубачева: </span><span ng-bind-html-unsafe="word.trubachev"></span></p>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

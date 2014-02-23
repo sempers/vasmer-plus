@@ -1,0 +1,24 @@
+.word-item
+{
+    margin-top: 15px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #aaaaaa;
+}
+
+.found-label
+{
+    font-size: 1.1em;
+    color: rosybrown;
+}
+
+.words-div
+{
+    margin-top: 15px;
+}
+
+.origin,
+.trubachev
+{
+    font-weight: bold;
+    color: #777777;
+}

@@ -7,7 +7,7 @@ exports.searchWord = function (req, res, db) {
         return;
     }
     var word = req.params.word;
-    var _query = "SELECT * FROM vasmer WHERE word LIKE '" + word + "%'";
+    var _query = "SELECT * FROM vasmer WHERE word LIKE '" + word + "%' or word = '" + word + "'";
     db.all(_query, function(err, rows){
        res.json(rows || []);
     });

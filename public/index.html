@@ -19,7 +19,7 @@
         <h1>Этимологический словарь Фасмера</h1>
     </div>
     <form class="form-search">
-        <input id="word-query" type="text" class="input-large" ng-model="wordQuery" ng-value="{{wordQuery}}"
+        <input id="word-query" type="text" class="input-xlarge" ng-model="wordQuery" ng-value="{{wordQuery}}"
                placeholder="Введите слово для поиска" style="width: 350px"/>
         <button class="btn btn-small" ng-click="doSearch()">Найти</button>
     </form>
@@ -29,8 +29,7 @@
     <div class="words" ng-show="words" class="words-div">
         <ul  class="unstyled">
             <li ng-repeat="word in words | orderBy:'word'" class="word-item">
-                <p><h3>{{word.word}}</h3></p>
-                <p ng-show="word.general"><strong></strong><span ng-bind-html-unsafe="word.general"></span></p>
+                <p ng-show="word.general"><span class="word">{{word.word}}</span>&nbsp;&nbsp;&nbsp;<span ng-bind-html-unsafe="word.general"></span></p>
                 <p ng-show="word.origin"><span class="origin">Происхождение: </span><span ng-bind-html-unsafe="word.origin"></span></p>
                 <p ng-show="word.trubachev"><span class="trubachev">Комментарий Трубачева: </span><span ng-bind-html-unsafe="word.trubachev"></span></p>
             </li>

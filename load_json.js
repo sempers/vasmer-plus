@@ -11,7 +11,7 @@ function mend(word) {
     return word.
         replace("я́", "я").
         replace("Я́", "я").
-        replace("а́", "a").
+        replace("а́", "а").
         replace("А́", "А").
         replace("ы́", "ы").
         replace("Ы́", "Ы").

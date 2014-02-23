@@ -12,7 +12,6 @@ app.set('port', process.env.PORT || 3000);
 var dbCrashed = true;
 var db;
 
-/*
 try {
     var dblite = require('dblite');
     db = dblite("vasmer.sqlite");
@@ -20,7 +19,7 @@ try {
 catch (e)
 {
 	dbCrashed = true;
-}*/
+}
 
 app.get("/search/:word", function(req, res){
     return search.searchWord(req, res, db);

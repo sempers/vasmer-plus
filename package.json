@@ -5,6 +5,7 @@
     "dependencies": {
         "express": "*",
         "ejs": "*",
+        "sqlite3": "*",
 		"dblite": "*"
     },
 	"subdomain": "vasmer",

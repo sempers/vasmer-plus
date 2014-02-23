@@ -1,8 +1,6 @@
 var http = require('http');
 var express = require('express');
-var dblite = require('dblite');
 var search = require('./search');
-
 
 var app = express();
 app.use(express.static(__dirname + '/public'));
@@ -13,22 +11,21 @@ var server = http.createServer(app);
 var dbCrashed = false;
 
 try {
-	var db = dblite("vasmer.sqlite");
+    var db = require('dblite')("vasmer.sqlite");
 }
-catch (e)
-{
-	dbCrashed = true;
+catch (e) {
+    dbCrashed = true;
 }
 
-app.get("/search/:word", function(req, res){
+app.get("/search/:word", function (req, res) {
     return search.searchWord(req, res, db);
 });
 
 app.get("/*", function (req, res) {
-	if (dbCrashed)
-		res.render("index-nodb.html");
-	else 
-		res.render("index.html");
+    if (dbCrashed)
+        res.render("index-nodb.html");
+    else
+        res.render("index.html");
 });
 
 server.listen(process.env.PORT || 3000, process.env.IP || "127.0.0.1", function () {

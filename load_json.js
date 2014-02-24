@@ -1,7 +1,7 @@
 var cheerio = require('cheerio');
 var fs = require('fs');
 
-var html = fs.readFileSync("vasmer-all.html", {encoding: "utf-8", flag: "r"});
+var html = fs.readFileSync("htmls/vasmer-all.html", {encoding: "utf-8", flag: "r"});
 
 console.log("Loading html");
 var $ = cheerio.load(html);
@@ -27,7 +27,7 @@ function mend(word) {
         replace("Е́", "Е").
         replace("э́", "э").
         replace("Э́", "Э").
-        trim();
+        toLowerCase();
 }
 
 
@@ -39,7 +39,8 @@ for (var j = 1; j<rows.length; j++) {
     var rec = {};
     var row = rows.eq(j);
     var tds = row.find("td");
-    rec.word = mend(tds[0].children[0].children[0].children[0].data);
+    rec.wordDict = tds[0].children[0].children[0].children[0].data.replace(".", "").trim();
+    rec.word = mend(rec.wordDict);
     rec.general = $(tds[1].children[0]).html();
     rec.origin = $(tds[2].children[0]).html();
     rec.trubachev = $(tds[3].children[0]).html();

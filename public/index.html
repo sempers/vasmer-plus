@@ -20,16 +20,16 @@
     </div>
     <form class="form-search">
         <input id="word-query" type="text" class="input-xlarge" ng-model="wordQuery" ng-value="{{wordQuery}}"
-               placeholder="Введите слово для поиска" style="width: 350px"/>
+               placeholder="Введите слово для поиска" style="width: 400px"/>
         <button class="btn btn-small" ng-click="doSearch()">Найти</button>
     </form>
     <div ng-show="words">
         <span class="found-label">Найдено: {{words.length}}</span>
     </div>
-    <div class="words" ng-show="words" class="words-div">
+    <div ng-show="words" class="words-div">
         <ul  class="unstyled">
             <li ng-repeat="word in words | orderBy:'word'" class="word-item">
-                <p ng-show="word.general"><span class="word">{{word.word}}</span>&nbsp;&nbsp;&nbsp;<span ng-bind-html-unsafe="word.general"></span></p>
+                <p ng-show="word.general"><span class="word">{{word.wordDict}}</span>&nbsp;&nbsp;<span ng-bind-html-unsafe="word.general"></span></p>
                 <p ng-show="word.origin"><span class="origin">Происхождение: </span><span ng-bind-html-unsafe="word.origin"></span></p>
                 <p ng-show="word.trubachev"><span class="trubachev">Комментарий Трубачева: </span><span ng-bind-html-unsafe="word.trubachev"></span></p>
             </li>

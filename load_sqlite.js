@@ -5,13 +5,13 @@ var json;
 function loadJSONToDb(data){
 
     var db = dblite("vasmer.sqlite");
-    db.query("CREATE TABLE IF NOT EXISTS vasmer (id INTEGER PRIMARY KEY AUTOINCREMENT, word TEXT, general TEXT, origin TEXT, trubachev TEXT, langref VARCHAR);");
+    db.query("CREATE TABLE IF NOT EXISTS vasmer (id INTEGER PRIMARY KEY AUTOINCREMENT, wordDict TEXT, word TEXT, general TEXT, origin TEXT, trubachev TEXT, langref TEXT);");
     db.query("DELETE from vasmer", function(err){
 
         var c = 0;
 
         function insertcb(){
-            //console.log("Record #", this.index, " word: ", this.word, "inserted.");
+            console.log("Record #", this.index, " word: ", this.word, "inserted.");
             c++;
             if (c == data.length)
                 console.log("import completed");
@@ -26,7 +26,7 @@ function loadJSONToDb(data){
                 rec.trubachev = rec.trubachev || "";
                 rec.langref = rec.langref || "";
                 rec.index = i;
-                db.query("INSERT INTO vasmer (word, general, origin, trubachev, langref) VALUES ( :word, :general, :origin, :trubachev, :langref)", rec, insertcb);
+                db.query("INSERT INTO vasmer (wordDict, word, general, origin, trubachev, langref) VALUES ( :wordDict, :word, :general, :origin, :trubachev, :langref)", rec, insertcb.bind(rec));
             }
         }
     });

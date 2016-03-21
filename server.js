@@ -1,37 +1,21 @@
-var http = require('http');
 var express = require('express');
-var search = require('./search');
+var code = require('./code');
 
 var app = express();
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/public');
 app.engine('html', require('ejs').renderFile);
-app.use(express.methodOverride());
-app.set('port', process.env.PORT || 3000);
 
-var dbCrashed = false;
-var db;
+var db = code.dbConnect();
 
-try {
-    var sqlite3 = require("sqlite3");
-    db = new sqlite3.Database("vasmer.sqlite");
-}
-catch (e)
-{
-	dbCrashed = true;
-}
-
-app.get("/search/:word", function(req, res){
-    return search.searchWord(req, res, db);
+app.get("/q/:word", function(req, res){
+    return code.searchWord(req, res, db);
 });
 
 app.get("/*", function (req, res) {
-	if (dbCrashed)
-		res.render("index-nodb.html");
-	else 
-		res.render("index.html");
+	res.render(db? "index.html": "index-nodb.html");
 });
 
-http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
+app.listen(process.env.PORT || 3000, function(){
+	console.log('Vasmer listening');
 });

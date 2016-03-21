@@ -3,7 +3,7 @@
  */
 exports.searchWord = function (req, res, db) {
     if (!db) {
-        res.json({"error": "NoDB"});
+        res.json([]);
         return;
     }
     var word = req.params.word.toLowerCase();
@@ -11,4 +11,14 @@ exports.searchWord = function (req, res, db) {
     db.all(_query, function(err, rows){
        res.json(rows || []);
     });
+};
+
+exports.dbConnect = function () {
+    try {
+        return new (require("sqlite3")).Database("vasmer.sqlite");
+    }
+    catch (e)
+    {
+        return null;
+    }
 };

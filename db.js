@@ -122,8 +122,8 @@ function processDictionary(req, res) {
 }
 
 function jsonWord(req, res) {
-    const entry = req.params.entry;
-    if (!entry) {
+    var entry = req.params.entry;
+    if (!entry || entry.length === 0) {
         res.json([]);
         return;
     }
@@ -132,19 +132,23 @@ function jsonWord(req, res) {
 }
 
 function htmlWord(req, res) {
-    const entry = req.params.entry;
-    if (!entry) {
-        res.render('index', {words: []});
-        return;
+    var entry = req.params.entry;
+    if (!entry || entry.length === 0) {
+        res.render('index.html');
+		return;
     }
     const re = new RegExp('^-?' + entry, "i");
     Word.find({entry: re}).sort({entry: 1}).exec((err, words) => {
         if (!err) {
-            res.render('index', {words: words.map((w) => w.toObject())});
+            res.render('index.html', {entries: words.map((w) => w.toObject())});
         } else {
-            res.render('index', {words: []});
+            res.render('index.html', {entries: []});
         }
     });
+}
+
+function defaultPage(req, res) {
+	res.render('index.html', {entries: [], start: true});
 }
 
 function jsonLang(req, res) {
@@ -165,16 +169,16 @@ function jsonLang(req, res) {
 function htmlLang(req, res) {
     var lang = req.params.lang;
     if (!lang || Object.values(LANGS).indexOf(lang) < 0) {
-        res.render('index', {words: []});
-        return;
+        res.render('index.html', {entries: []});
+		return;
     }
     Word.find({langRefs: {'$in': [lang]}}).sort({entry: 1}).exec((err, words) => {
         if (!err) {
-            res.render('index', {words: words.map((w) => w.toObject())});
+            res.render('index.html', {entries: words.map((w) => w.toObject())});
         } else {
-            res.render('index', {words: []});
+            res.render('index.html', {entries: []});
         }
     });
 }
 
-module.exports = {exportDictionary, jsonWord, htmlWord, processDictionary, htmlLang, jsonLang};
+module.exports = {exportDictionary, jsonWord, htmlWord, processDictionary, htmlLang, jsonLang, defaultPage};

@@ -30,18 +30,19 @@
                placeholder="Введите слово для поиска" style="width: 400px"/>
         <button class="btn btn-small" ng-click="doSearch()">Найти</button>
     </form>
+	<% var words = entries || []; %>
     <div>
         <span class="found-label">Найдено: <%= words.length %></span>
     </div>
     <div class="words-div">
         <ul  class="unstyled">
-            <% words.forEach(function(word){ %>
+            <% for (var i = 0; i < words.length; i++) { var word = words[i]; %>
             <li class="word-item">
                 <% if (word.general || word.entryUtf) { %><p ><span class="word"><%= word.entryUtf %></span>&nbsp;&nbsp;<%- word.general %></p><% } %>
                 <% if (word.origin) { %><p ><span class="origin">Происхождение: </span><%- word.origin %></p><% } %>
                 <% if (word.trubachev) { %><p ><span class="trubachev">Комментарий Трубачева: </span><%- word.trubachev %></p><% } %>
             </li>
-            <% }); %>
+            <% } %>
         </ul>
     </div>
 </div>

@@ -1,12 +1,24 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
 <head>
-    <script src="js/lib/angular.min.js"></script>
-    <script src="js/app.js"></script>
     <title>Этимологический словарь Фасмера</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
     <base href="/" />
+    <script src="/js/lib/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', [ ]);
+
+        function AppCtrl($scope, $http, $location) {
+            if ($location.path().length > 1 && !$location.path().includes("/")){
+                $scope.wordQuery = $location.path().replace("/","");
+            }
+
+            $scope.doSearch = function(){
+                window.location.href = "/" + encodeURIComponent($scope.wordQuery);
+            };
+        }
+    </script>
 </head>
 <body>
 <div class="container" ng-controller="AppCtrl">
@@ -18,16 +30,18 @@
                placeholder="Введите слово для поиска" style="width: 400px"/>
         <button class="btn btn-small" ng-click="doSearch()">Найти</button>
     </form>
-    <div ng-show="words">
-        <span class="found-label">Найдено: {{words.length}}</span>
+    <div>
+        <span class="found-label">Найдено: <%= words.length %></span>
     </div>
-    <div ng-show="words" class="words-div">
+    <div class="words-div">
         <ul  class="unstyled">
-            <li ng-repeat="word in words | orderBy:'word'" class="word-item">
-                <p ng-show="word.general"><span class="word">{{word.wordDict}}</span>&nbsp;&nbsp;<span ng-bind-html-unsafe="word.general"></span></p>
-                <p ng-show="word.origin"><span class="origin">Происхождение: </span><span ng-bind-html-unsafe="word.origin"></span></p>
-                <p ng-show="word.trubachev"><span class="trubachev">Комментарий Трубачева: </span><span ng-bind-html-unsafe="word.trubachev"></span></p>
+            <% words.forEach(function(word){ %>
+            <li class="word-item">
+                <% if (word.general || word.entryUtf) { %><p ><span class="word"><%= word.entryUtf %></span>&nbsp;&nbsp;<%- word.general %></p><% } %>
+                <% if (word.origin) { %><p ><span class="origin">Происхождение: </span><%- word.origin %></p><% } %>
+                <% if (word.trubachev) { %><p ><span class="trubachev">Комментарий Трубачева: </span><%- word.trubachev %></p><% } %>
             </li>
+            <% }); %>
         </ul>
     </div>
 </div>

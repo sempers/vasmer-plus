@@ -1,13 +1,17 @@
 {
-    "name": "vasmer-plus",
-    "version": "0.0.1",
+	"name": "vasmer2",
+	"version": "0.0.1",
 	"private": true,
-    "dependencies": {
-        "express": "*",
-        "ejs": "*",
-        "sqlite3": "*"
-    },
-	"subdomain": "vasmer",
+	"dependencies": {
+		"express": "*",
+		"ejs": "*",
+		"mongoose": "*",
+		"consolidate": "*",
+		"cheerio": "*",
+		"underscore": "*",
+		"serve-favicon": "*"
+	},
+	"subdomain": "vasmer2",
 	"scripts": {
 		"start": "node server.js"
 	},
